@@ -74,10 +74,12 @@
 <body>
 
 <h2>Saad Flight History</h2>
-<p style="text-align: center;">For more information. Go to <a href="https://my.flightradar24.com/saadtraveler" target="_blank"> flightradar24 </a></p>
+<p style="text-align: center;"><a target="_blank" href="https://my.flightradar24.com/saadtraveler"><img src="https://banners-my.flightradar24.com/saadtraveler.png" alt="My Flightdiary.net profile" /></a> </p>
+
+<!-- <p style="text-align: center;">For more information. Go to <a href="https://my.flightradar24.com/saadtraveler" target="_blank"> flightradar24 </a></p> -->
 
 <input type="text" id="searchInput" placeholder="Search by any keyword (airline, flight number, airport...)">
-<h3 id="columnCount" style="font-weight: bold; margin-bottom: 20px;"></h3>
+<!-- <h3 id="columnCount" style="font-weight: bold; margin-bottom: 20px;"></h3> -->
 
 <table id="csvTable">
   <thead></thead>
@@ -168,7 +170,7 @@
         headers = fullData[0];
         renderTable(fullData);
         // console.log()
-        columnCountElem.textContent = `Total Flights: ${fullData.length -1}`;
+        // columnCountElem.textContent = `Total Flights: ${fullData.length -1}`;
 
       })
       .catch(err => {
