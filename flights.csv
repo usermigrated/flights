@@ -1,0 +1,31 @@
+
+Date,"Flight number",From,To,"Dep time","Arr time",Duration,Airline,Aircraft,Registration,"Seat number","Seat type","Flight class","Flight reason",Note,Dep_id,Arr_id,Airline_id,Aircraft_id
+2024-05-01,BA0765,"Oslo / Gardermoen (OSL/ENGM)","London / Heathrow (LHR/EGLL)",21:20:00,22:30:00,02:10:00,"British Airways (BA/BAW)","Airbus A320 (A320)",,20F,1,1,1,,2219,1618,113,27
+2024-07-09,EY12,"London / Heathrow (LHR/EGLL)","Abu Dhabi / Abu Dhabi (AUH/OMAA)",09:30:00,19:25:00,06:55:00,"Etihad Airways (EY/ETD)"," ()",,63A,1,1,0,,1618,188,276,0
+2024-07-09,EY241,"Abu Dhabi / Abu Dhabi (AUH/OMAA)","Lahore / Lahore (LHE/OPLA)",23:05:00,03:30:00,03:25:00,"Etihad Airways (EY/ETD)","Airbus A321 (A321)",,40A,1,1,0,,188,1615,276,28
+2024-07-31,EY242,"Lahore / Lahore (LHE/OPLA)","Abu Dhabi / Abu Dhabi (AUH/OMAA)",04:35:00,07:00:00,03:25:00,"Etihad Airways (EY/ETD)","Airbus A321-200 (A321)",,32A,1,1,0,,1615,188,276,2076
+2024-07-31,EY17,"Abu Dhabi / Abu Dhabi (AUH/OMAA)","London / Heathrow (LHR/EGLL)",14:05:00,18:45:00,07:40:00,"Etihad Airways (EY/ETD)"," ()",,,1,1,0,,188,1618,276,0
+2023-10-31,SK1527,"Stockholm / Arlanda (ARN/ESSA)","London / Heathrow (LHR/EGLL)",19:45:00,21:20:00,02:35:00,"Scandinavian Airlines (SK/SAS)"," ()",,,1,1,0,,3622,1618,677,0
+2023-10-28,FR4693,"London / Stansted (STN/EGSS)","Stockholm / Arlanda (ARN/ESSA)",17:25:00,20:45:00,02:20:00,"Ryanair (FR/RYR)","Boeing 737-800 (B738)",,,1,1,0,,2785,3622,668,231
+2024-04-24,RK32,"London / Stansted (STN/EGSS)","Torp / Sandefjord (TRF/ENTO)",16:40:00,19:35:00,01:55:00,"Air Afrique (RK/RKA)","Boeing 737-800 (B738)",,10A,1,1,1,,2785,3005,2447,231
+2024-10-27,TO7411,"Oslo / Gardermoen (OSL/ENGM)","Paris / Orly (ORY/LFPO)",19:50:00,22:40:00,02:50:00,"Transavia.com France (TO/TVF)","Boeing 737-800 (B738)",,,1,1,1,,2219,2215,1397,231
+2024-10-30,EZY2436,"Paris / Charles de Gaulle (CDG/LFPG)","London / Luton (LTN/EGGW)",10:05:00,10:55:00,01:50:00,"Easyjet (U2/EZY)"," ()",,,1,1,1,,509,1701,291,0
+2025-03-14,KU104,"London / Heathrow (LHR/EGLL)","Kuwait / Kuwait (KWI/OKKK)",10:45:00,19:45:00,07:00:00,"Kuwait Airways (KU/KAC)","Boeing 777-300ER (B77W)",9K-AOJ,,1,1,1,,1618,1538,424,2023
+2025-03-14,KU201,"Kuwait / Kuwait (KWI/OKKK)","Lahore / Lahore (LHE/OPLA)",21:10:00,02:50:00,03:40:00,"Kuwait Airways (KU/KAC)","Boeing 777-300ER (B77W)",9K-AOL,,1,1,1,,1538,1615,424,2023
+2025-04-10,KU202,"Lahore / Lahore (LHE/OPLA)","Kuwait / Kuwait (KWI/OKKK)",05:10:00,07:10:00,04:00:00,"Kuwait Airways (KU/KAC)","Airbus A330-800neo (A338)",9K-APG,16A,1,1,1,,1615,1538,424,2129
+2025-04-10,KU101,"Kuwait / Kuwait (KWI/OKKK)","London / Heathrow (LHR/EGLL)",10:00:00,14:45:00,06:45:00,"Kuwait Airways (KU/KAC)","Boeing 777-300ER (B77W)",9K-AOH,,1,1,1,,1538,1618,424,2023
+2023-05-31,SV112,"London / Heathrow (LHR/EGLL)","Riyadh / King Khalid (RUH/OERK)",17:50:00,02:35:00,06:45:00,"Saudi Arabian Airlines (SV/SVA)","Boeing 777-300 (B773)",,,1,1,1,,1618,2570,735,247
+2023-06-01,SV734,"Jeddah / King Abdulaziz (JED/OEJN)","Lahore / Lahore (LHE/OPLA)",02:10:00,09:05:00,04:55:00,"Saudi Arabian Airlines (SV/SVA)","Boeing 777-300 (B773)",,,1,1,1,,1325,1615,735,247
+2023-07-04,SV737,"Lahore / Lahore (LHE/OPLA)","Riyadh / King Khalid (RUH/OERK)",20:50:00,23:05:00,04:15:00,"Saudi Arabian Airlines (SV/SVA)","Boeing 777 (B777)",,,1,1,1,,1615,2570,735,2012
+2023-07-05,SV111,"Riyadh / King Khalid (RUH/OERK)","London / Heathrow (LHR/EGLL)",02:30:00,07:30:00,07:00:00,"Saudi Arabian Airlines (SV/SVA)","Boeing 777 (B777)",,,1,1,1,,2570,1618,735,2012
+2023-12-31,SV100,"London / Gatwick (LGW/EGKK)","Jeddah / King Abdulaziz (JED/OEJN)",15:00:00,23:15:00,06:15:00,"Saudi Arabian Airlines (SV/SVA)","Boeing 787 Dreamliner (B787)",,,1,1,1,,1614,1325,735,2086
+2024-01-01,SV734,"Jeddah / King Abdulaziz (JED/OEJN)","Lahore / Lahore (LHE/OPLA)",02:10:00,09:05:00,04:55:00,"Saudi Arabian Airlines (SV/SVA)","Boeing 777-300 (B773)",,,2,1,1,,1325,1615,735,247
+2024-01-10,SV735,"Lahore / Lahore (LHE/OPLA)","Jeddah / King Abdulaziz (JED/OEJN)",10:45:00,13:55:00,05:10:00,"Saudi Arabian Airlines (SV/SVA)","Boeing 777-300 (B773)",,,1,1,1,,1615,1325,735,247
+2024-01-11,SV113,"Riyadh / King Khalid (RUH/OERK)","London / Heathrow (LHR/EGLL)",11:00:00,16:00:00,07:00:00,"Saudi Arabian Airlines (SV/SVA)","Boeing 777-300 (B773)",,,1,1,1,,2570,1618,735,247
+2024-10-24,RK32,"London / Stansted (STN/EGSS)","Torp / Sandefjord (TRF/ENTO)",13:50:00,16:40:00,01:50:00,"Air Afrique (RK/RKA)","Boeing 737-800 (B738)",,,1,1,1,,2785,3005,2447,231
+2022-10-05,EK625,"Lahore / Lahore (LHE/OPLA)","Dubai / Dubai International (DXB/OMDB)",09:00:00,11:15:00,03:15:00,"Emirates (EK/UAE)","Boeing 777-300ER (B77W)",,,2,1,1,,1615,768,807,2023
+2022-10-05,EK9,"Dubai / Dubai International (DXB/OMDB)","London / Gatwick (LGW/EGKK)",14:55:00,19:45:00,07:50:00,"Emirates (EK/UAE)","Airbus A380 (A380)",,,2,1,1,,768,1614,807,38
+2020-11-29,ER521,"Lahore / Lahore (LHE/OPLA)","Karachi / Quaid E Azam (KHI/OPKC)",10:45:00,12:30:00,01:45:00,"Serene Air (ER/SEP)","Airbus A320 (A320)",,,1,1,1,,1615,1422,1673,27
+2020-11-30,ER524,"Karachi / Quaid E Azam (KHI/OPKC)","Lahore / Lahore (LHE/OPLA)",19:50:00,21:35:00,01:45:00,"Serene Air (ER/SEP)","Airbus A330-200 (A332)",,,1,1,1,,1422,1615,1673,30
+2021-01-10,PA401,"Lahore / Lahore (LHE/OPLA)","Karachi / Quaid E Azam (KHI/OPKC)",10:00:00,11:55:00,01:55:00,"Airblue Limited (ED/ABQ)","Airbus A321-200 (A321)",,,1,1,1,,1615,1422,10,2076
+2021-01-11,PA404,"Karachi / Quaid E Azam (KHI/OPKC)","Lahore / Lahore (LHE/OPLA)",21:00:00,23:00:00,02:00:00,"Airblue Limited (ED/ABQ)","Airbus A321 (A321)",,,2,1,1,,1422,1615,10,28
