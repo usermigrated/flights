@@ -29,3 +29,12 @@ Date,"Flight number",From,To,"Dep time","Arr time",Duration,Airline,Aircraft,Reg
 2020-11-30,ER524,"Karachi / Quaid E Azam (KHI/OPKC)","Lahore / Lahore (LHE/OPLA)",19:50:00,21:35:00,01:45:00,"Serene Air (ER/SEP)","Airbus A330-200 (A332)",,,1,1,1,,1422,1615,1673,30
 2021-01-10,PA401,"Lahore / Lahore (LHE/OPLA)","Karachi / Quaid E Azam (KHI/OPKC)",10:00:00,11:55:00,01:55:00,"Airblue Limited (ED/ABQ)","Airbus A321-200 (A321)",,,1,1,1,,1615,1422,10,2076
 2021-01-11,PA404,"Karachi / Quaid E Azam (KHI/OPKC)","Lahore / Lahore (LHE/OPLA)",21:00:00,23:00:00,02:00:00,"Airblue Limited (ED/ABQ)","Airbus A321 (A321)",,,2,1,1,,1422,1615,10,28
+2025-09-04,W95605,"London / Gatwick (LGW/EGKK)","Jeddah / King Abdulaziz (JED/OEJN)",16:05:00,00:40:00,06:35:00,"Wizz Air UK (W9/WUK)","Airbus A321neo (A21N)",G-XLRB,11A,1,1,1,Umrah,1614,1325,2637,2128
+2025-09-13,SV1421,"Madinah / Prince MBA Aziz (MED/OEMA)","Jeddah / King Abdulaziz (JED/OEJN)",03:35:00,04:45:00,01:10:00,"Saudi Arabian Airlines (SV/SVA)","Airbus A330-300 (A333)",HZ-AQ19,,1,1,1,,1790,1325,735,31
+2025-09-13,SV732,"Jeddah / King Abdulaziz (JED/OEJN)","Lahore / Lahore (LHE/OPLA)",07:45:00,14:45:00,04:55:00,"Saudi Arabian Airlines (SV/SVA)","Boeing 777-300ER (B77W)",HZ-AK19,,1,1,1,,1325,1615,735,2023
+2025-09-24,SV735,"Lahore / Lahore (LHE/OPLA)","Jeddah / King Abdulaziz (JED/OEJN)",10:45:00,13:55:00,05:10:00,"Saudi Arabian Airlines (SV/SVA)","Boeing 777-300ER (B77W)",HZ-AK18,41A,1,1,1,,1615,1325,735,2023
+2025-09-24,SV117,"Jeddah / King Abdulaziz (JED/OEJN)","London / Heathrow (LHR/EGLL)",16:00:00,20:30:00,06:30:00,"Saudi Arabian Airlines (SV/SVA)","Boeing 787-10 (B78X)",HZ-AR33,52A,1,1,1,,1325,1618,735,2138
+2025-11-06,J28,"London / Heathrow (LHR/EGLL)","Baku / Heydar Aliyev (GYD/UBBB)",22:05:00,07:35:00,06:30:00,"AZAL Azerbaijan Airlines (J2/AHY)","Boeing 787-8 (B788)",VP-BBS,,2,1,1,,1618,216,41,2087
+2025-11-07,J2145,"Baku / Heydar Aliyev (GYD/UBBB)","Lahore / Lahore (LHE/OPLA)",21:10:00,01:45:00,03:35:00,"AZAL Azerbaijan Airlines (J2/AHY)","Airbus A319 (A319)",4K-AZ04,,2,1,1,,216,1615,41,26
+2025-11-11,J2146,"Lahore / Lahore (LHE/OPLA)","Baku / Heydar Aliyev (GYD/UBBB)",02:45:00,05:35:00,03:50:00,"AZAL Azerbaijan Airlines (J2/AHY)","Airbus A319 (A319)",4K-AZ05,,2,1,1,,1615,216,41,26
+2025-11-11,J27,"Baku / Heydar Aliyev (GYD/UBBB)","London / Heathrow (LHR/EGLL)",19:05:00,21:05:00,05:00:00,"AZAL Azerbaijan Airlines (J2/AHY)","Boeing 787-8 (B788)",VP-BBR,,2,1,1,,216,1618,41,2087
