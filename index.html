@@ -1,187 +1,236 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Saad Flight History</title>
-  <style>
-     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: url('./plane.jpeg') fixed;
-      background-repeat:no-repeat ;
-      background-size:contain;
-      background-position:center;
-      color: #333;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Saad — Personal Flight Archive</title>
+<meta name="description" content="A personal flight history dashboard." />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f5f1;--paper:#fff;--ink:#17211e;--muted:#77817b;--line:#e4e8e1;--green:#c9f36a;--deep:#183c32;--mint:#eaf4e8;--orange:#f4a261;--shadow:0 10px 35px #18271b0b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif}button,input,select{font:inherit}button{cursor:pointer}
+.shell{max-width:1500px;margin:auto;padding:26px 34px 50px}.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px}.brand{display:flex;gap:12px;align-items:center}.brandmark{width:42px;height:42px;border-radius:14px;background:var(--deep);display:grid;place-items:center;color:var(--green)}.brandmark svg{width:23px}.brandname{font:800 19px Manrope,sans-serif;letter-spacing:-.7px}.brandtag{font-size:11px;color:var(--muted);letter-spacing:1.7px;text-transform:uppercase;margin-top:2px}.top-actions{display:flex;gap:10px;align-items:center}.pill{border:1px solid var(--line);border-radius:999px;padding:10px 15px;background:#fff;color:var(--ink);font-size:12px;font-weight:700}.pill.primary{background:var(--deep);color:white;border-color:var(--deep)}.pill.primary:hover{background:#245647}.hero{background:var(--deep);border-radius:25px;padding:32px 34px;color:#fff;position:relative;overflow:hidden;display:grid;grid-template-columns:1.15fr .85fr;gap:20px;min-height:250px}.hero:after{content:"";position:absolute;width:390px;height:390px;border:1px solid #ffffff15;border-radius:50%;right:12%;top:-220px;box-shadow:0 0 0 38px #ffffff08,0 0 0 78px #ffffff05}.eyebrow{font:500 11px 'DM Mono',monospace;letter-spacing:2px;text-transform:uppercase;color:var(--green)}h1{font:800 clamp(30px,3.3vw,47px)/1.08 Manrope,sans-serif;letter-spacing:-2px;margin:13px 0 13px;max-width:580px}.hero p{color:#c1d0c8;font-size:14px;line-height:1.7;margin:0;max-width:520px}.hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-content:center;z-index:1}.hero-stat{border:1px solid #ffffff1e;background:#ffffff0a;border-radius:17px;padding:17px 18px}.hero-stat .num{font:800 28px Manrope,sans-serif;letter-spacing:-1px}.hero-stat .label{color:#c1d0c8;font-size:11px;margin-top:4px}.stat-accent{color:var(--green)}.section-head{display:flex;align-items:end;justify-content:space-between;margin:31px 0 14px}.section-head h2{font:800 18px Manrope,sans-serif;letter-spacing:-.5px;margin:0}.section-head p{font-size:12px;color:var(--muted);margin:5px 0 0}.tiny-label{font:500 10px 'DM Mono',monospace;text-transform:uppercase;letter-spacing:1.4px;color:var(--muted)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.kpi{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:20px 21px;box-shadow:var(--shadow)}.kpi-top{display:flex;justify-content:space-between;align-items:center}.kpi-icon{width:33px;height:33px;background:var(--mint);border-radius:11px;display:grid;place-items:center;color:var(--deep);font-size:16px}.kpi .value{font:800 28px Manrope,sans-serif;letter-spacing:-1.2px;margin:17px 0 4px}.kpi .desc{font-size:12px;color:var(--muted)}.charts{display:grid;grid-template-columns:1.1fr .9fr;gap:15px}.panel{background:var(--paper);border:1px solid var(--line);border-radius:19px;padding:22px;box-shadow:var(--shadow);min-width:0}.panel-title{display:flex;justify-content:space-between;align-items:start;margin-bottom:20px}.panel-title h3{font:700 14px Manrope,sans-serif;margin:0}.panel-title p{font-size:11px;color:var(--muted);margin:5px 0 0}.chart-wrap{height:230px;position:relative}.lower-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:15px;margin-top:15px}.airline-list{display:flex;flex-direction:column;gap:16px}.airline-row{display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:11px}.airline-badge{width:34px;height:34px;border-radius:11px;background:#f1f4ed;display:grid;place-items:center;font:700 10px 'DM Mono',monospace;color:var(--deep)}.airline-name{font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.bar-bg{height:5px;background:#edf0e9;border-radius:9px;margin-top:7px;overflow:hidden}.bar-fill{height:100%;background:var(--deep);border-radius:9px}.airline-count{font:500 12px 'DM Mono',monospace;color:var(--muted)}.route-highlight{background:#f6f8f2;border-radius:16px;padding:19px;margin-bottom:12px}.route-top{display:flex;justify-content:space-between;align-items:center}.route-chip{font:500 10px 'DM Mono',monospace;color:var(--deep);background:var(--green);border-radius:5px;padding:5px 7px}.route-line{display:grid;grid-template-columns:1fr 60px 1fr;align-items:center;margin:20px 0 14px}.airport-code{font:800 23px Manrope,sans-serif;letter-spacing:-1px}.airport-city{font-size:11px;color:var(--muted);margin-top:2px}.route-center{text-align:center;color:var(--muted);font-size:10px}.route-center .line{height:1px;background:#c9d1c6;position:relative;margin:7px 0}.route-center .line:after{content:"✈";position:absolute;left:calc(50% - 6px);top:-10px;background:#f6f8f2;padding:0 3px;color:var(--deep);font-size:13px}.route-bottom{font-size:11px;color:var(--muted);display:flex;justify-content:space-between}.filters{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:15px}.filters input,.filters select{border:1px solid var(--line);background:white;border-radius:11px;padding:10px 12px;font-size:12px;outline:none;color:var(--ink)}.filters input{min-width:230px;flex:1}.filters input:focus,.filters select:focus{border-color:#829b8b;box-shadow:0 0 0 3px #dce9dd}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:16px;background:white}.flight-table{width:100%;border-collapse:collapse;min-width:850px}.flight-table th{text-align:left;padding:14px 16px;background:#f8f9f6;color:var(--muted);font:500 10px 'DM Mono',monospace;text-transform:uppercase;letter-spacing:1px;white-space:nowrap}.flight-table td{padding:15px 16px;border-top:1px solid #edf0eb;font-size:12px;white-space:nowrap}.flight-table tr:hover td{background:#fbfcf8}.flightno{font:700 11px 'DM Mono',monospace;color:var(--deep)}.route-cell{font-weight:700}.sub{display:block;font-size:10px;color:var(--muted);font-weight:400;margin-top:3px}.duration{font:500 11px 'DM Mono',monospace}.airline-pill{display:inline-block;border-radius:7px;padding:6px 8px;background:#f0f4ed;color:#385346;font-size:10px;font-weight:700}.empty{text-align:center;padding:40px;color:var(--muted);font-size:13px}.pagination{display:flex;align-items:center;justify-content:space-between;padding:14px 2px;color:var(--muted);font-size:11px}.pagination button{border:1px solid var(--line);background:white;border-radius:8px;padding:7px 11px;font-size:11px}.pagination button:disabled{opacity:.4;cursor:default}.footer{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:11px;margin-top:24px}.toast{position:fixed;bottom:24px;right:24px;background:var(--deep);color:white;padding:13px 17px;border-radius:12px;font-size:12px;box-shadow:var(--shadow);display:none;z-index:5}.file-input{display:none}
+@media(max-width:900px){.shell{padding:18px}.hero{grid-template-columns:1fr;padding:27px}.hero-stats{grid-template-columns:repeat(2,1fr)}.kpis{grid-template-columns:repeat(2,1fr)}.charts,.lower-grid{grid-template-columns:1fr}.topbar{align-items:flex-start;gap:15px}.top-actions{flex-wrap:wrap;justify-content:flex-end}}@media(max-width:540px){.shell{padding:12px}.brandtag{display:none}.topbar{margin-bottom:18px}.top-actions .pill{padding:9px 10px}.hero{border-radius:19px;padding:22px}.hero-stat{padding:13px}.hero-stat .num{font-size:23px}.kpis{gap:8px}.kpi{padding:14px}.kpi .value{font-size:23px}.kpi .desc{font-size:10px}.panel{padding:16px}.section-head{margin-top:24px}.footer{flex-direction:column}}
 
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(255, 255, 255, 0.85); /* white overlay for contrast */
-      z-index: -1;
-    }
+/* FlightLog Pro — refined editorial dashboard layer */
+:root{
+  --bg:#f5f7fb;--paper:#ffffff;--ink:#172033;--muted:#68758a;
+  --line:#e5eaf2;--green:#b8f36b;--deep:#101d35;--mint:#eaf2ff;
+  --orange:#e8a45b;--shadow:0 8px 28px rgba(19,35,63,.055);
+}
+body{background:var(--bg);color:var(--ink);font-family:Inter,"DM Sans",sans-serif;
+  background-image:radial-gradient(circle at 90% 0%,rgba(184,243,107,.09),transparent 28%);}
+.shell{max-width:1580px;padding:28px clamp(18px,3.2vw,52px) 54px}
+.topbar{margin-bottom:26px}
+.brandmark{width:46px;height:46px;border-radius:13px;background:#152542;color:#b8f36b;box-shadow:0 5px 14px #101d351f}
+.brandname{font-size:20px;letter-spacing:-.8px;color:#15213a}
+.brandtag{letter-spacing:1.35px;font-size:10px;color:#7b879b}
+.pill{border-radius:10px;padding:11px 15px;border-color:#dce3ee;background:#fff;transition:transform .18s,box-shadow .18s}
+.pill:hover{transform:translateY(-1px);box-shadow:0 7px 18px #1b2c4612}
+.pill.primary{background:#172a49;border-color:#172a49;color:#fff}
+.pill.primary:hover{background:#223d66}
+.hero{background:linear-gradient(118deg,#111f39 0%,#1b3153 72%,#263e5d 100%);border-radius:22px;
+  padding:clamp(26px,3vw,42px);min-height:264px;box-shadow:0 16px 40px #14244017}
+.hero:before{content:"";position:absolute;inset:0;opacity:.18;pointer-events:none;
+  background:linear-gradient(135deg,transparent 0 57%,#b8f36b0c 57% 58%,transparent 58% 100%),
+  radial-gradient(circle at 83% 30%,#b8f36b22 0 2px,transparent 3px);}
+.hero:after{right:8%;top:-260px;width:480px;height:480px;border-color:#ffffff12;box-shadow:0 0 0 44px #ffffff06,0 0 0 90px #ffffff04}
+.eyebrow{color:#c4f78a;letter-spacing:2.1px;font-size:10px}
+h1{font-size:clamp(32px,3.6vw,50px);letter-spacing:-2.4px;line-height:1.04}
+.hero p{max-width:540px;font-size:14px;line-height:1.8;color:#c5d0e0}
+.hero-stat{background:#ffffff09;border:1px solid #ffffff20;border-radius:14px;padding:17px 19px;backdrop-filter:blur(4px)}
+.hero-stat .num{font-size:30px;letter-spacing:-1.2px}
+.hero-stat .label{font-size:11px;letter-spacing:.15px;color:#c3cee0}
+.stat-accent{color:#c4f78a}
+.section-head{margin:34px 0 15px;align-items:center}
+.section-head h2{font-size:18px;letter-spacing:-.55px;color:#17233b}
+.section-head p{margin:5px 0 0;font-size:12px;color:#7a879b}
+.tiny-label{font-size:10px;letter-spacing:1.35px;color:#8290a4;font-weight:700}
+.kpi,.panel,.table-wrap{background:#fff;border:1px solid #e7ecf3;box-shadow:var(--shadow);border-radius:17px}
+.kpis{gap:14px}
+.kpi{padding:20px 21px;transition:transform .2s,box-shadow .2s}
+.kpi:hover{transform:translateY(-2px);box-shadow:0 13px 30px #1b2c4610}
+.kpi-icon{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:#edf3ff;color:#345a92;font-size:17px}
+.value{font-size:31px;letter-spacing:-1.3px;color:#17233b}
+.desc{font-size:11px;color:#8590a2}
+.charts{gap:16px}
+.panel{padding:23px 24px}
+.panel-title{margin-bottom:19px}
+.panel-title h3{font-size:14px;letter-spacing:-.2px;color:#1d2b43}
+.panel-title p{font-size:11px;color:#8590a2}
+.chart-wrap{height:245px}
+.lower-grid{gap:16px;margin-top:16px}
+.airline-row{padding:13px 0;border-bottom:1px solid #eef1f6}
+.airline-badge{border-radius:9px;background:#edf3ff;color:#294e85;font-size:10px}
+.airline-name{font-size:12px;color:#25334b}
+.bar-bg{background:#edf1f7;height:5px}
+.bar-fill{background:linear-gradient(90deg,#294d7f,#9dbdff);border-radius:99px}
+.airline-count{font-size:11px;color:#63718a}
+.route-highlight{background:linear-gradient(140deg,#f5f8fd,#eef3fa);border:1px solid #e1e9f4;border-radius:14px;padding:20px}
+.route-chip{background:#e4f6d0;color:#355824;border-radius:7px;font-size:9px}
+.airport-code{font-size:30px;letter-spacing:-1px;color:#172b49}
+.airport-city{font-size:10px;color:#75839a}
+.route-center{color:#71809a}
+.route-center .line{background:#bdc9da}
+.route-bottom{border-top:1px solid #dce5f0;color:#75839a}
+.filters{gap:10px;margin-bottom:13px}
+.filters input,.filters select{border:1px solid #dfe6f0;border-radius:10px;background:#fff;color:#34425a;padding:12px 13px;box-shadow:0 2px 5px #15254204}
+.filters input:focus,.filters select:focus{outline:2px solid #c9d9f2;border-color:#8da9d3}
+.table-wrap{overflow:hidden}
+.flight-table{border-collapse:separate;border-spacing:0}
+.flight-table thead th{background:#f7f9fc;color:#7a879b;font-size:9px;letter-spacing:1.15px;padding:15px 16px;border-bottom:1px solid #e7ecf3}
+.flight-table tbody td{padding:15px 16px;border-bottom:1px solid #eef1f6;color:#344159;font-size:11px}
+.flight-table tbody tr{transition:background .15s}
+.flight-table tbody tr:hover{background:#f8faff}
+.flightno{font-weight:700;color:#254a7d;background:#edf3ff;border-radius:6px;padding:5px 7px}
+.route-cell{font-weight:700;color:#24324a}
+.route-cell .sub{font-size:10px;color:#8995a7;font-weight:400;margin-top:4px}
+.airline-pill{background:#f0f4fa;border:1px solid #e4eaf3;color:#52627c;border-radius:6px;padding:5px 7px;font-size:10px}
+.duration{font-weight:700;color:#283952;font-variant-numeric:tabular-nums}
+.pagination{padding:15px 2px;color:#77859a;font-size:11px}
+.pagination button{border:1px solid #dfe6f0;background:#fff;color:#42516a;border-radius:8px;padding:9px 12px}
+.pagination button:hover:not(:disabled){background:#edf3ff;border-color:#cbd8ed}
+.pagination button:disabled{opacity:.4;cursor:not-allowed}
+.footer{margin-top:35px;padding-top:18px;border-top:1px solid #e1e7f0;color:#8b96a8;font-size:9px;letter-spacing:1.1px}
+.toast{background:#172a49;border:1px solid #29466f;box-shadow:0 12px 30px #101d3525}
+.empty{padding:26px;color:#8995a7;font-size:12px}
+@media(max-width:900px){.hero{grid-template-columns:1fr}.hero-stats{margin-top:8px}.hero:after{right:-120px}.panel{padding:19px}.chart-wrap{height:220px}}
+@media(max-width:620px){.shell{padding:16px 12px 32px}.topbar{align-items:flex-start;gap:14px;flex-wrap:wrap}.top-actions{width:100%}.top-actions .pill{flex:1}.hero{padding:23px 20px;border-radius:17px}.hero-stats{gap:8px}.hero-stat{padding:13px}.hero-stat .num{font-size:24px}.section-head{align-items:flex-start;gap:8px}.kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.kpi{padding:15px}.value{font-size:26px}.charts,.lower-grid{grid-template-columns:1fr}.filters{display:grid;grid-template-columns:1fr 1fr}.filters input{grid-column:1/-1}.table-wrap{overflow-x:auto}.flight-table{min-width:850px}.footer{gap:8px;flex-direction:column}}
 
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #1a1a1a;
-    }
-
-    #searchInput {
-      display: block;
-      margin: 0 auto 20px auto;
-      padding: 10px;
-      width: 100%;
-      max-width: 400px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      /* background-color: #fff; */
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    th, td {
-      padding: 12px 15px;
-      border: 1px solid #e0e0e0;
-      text-align: left;
-    }
-
-    th {
-      background-color: #007bff;
-      color: white;
-      font-weight: 600;
-    }
-
-    tr:hover {
-      background-color: #f1f1f1;
-    }
-
-    .no-data {
-      text-align: center;
-      padding: 20px;
-      font-style: italic;
-      color: #999;
-    }
-  </style>
+</style>
 </head>
 <body>
-
-<h2>Saad Flight History</h2>
-<p style="text-align: center;"><a target="_blank" href="https://my.flightradar24.com/saadtraveler"><img src="https://banners-my.flightradar24.com/saadtraveler.png" alt="My Flightdiary.net profile" /></a> </p>
-
-<!-- <p style="text-align: center;">For more information. Go to <a href="https://my.flightradar24.com/saadtraveler" target="_blank"> flightradar24 </a></p> -->
-
-<input type="text" id="searchInput" placeholder="Search by any keyword (airline, flight number, airport...)">
-<!-- <h3 id="columnCount" style="font-weight: bold; margin-bottom: 20px;"></h3> -->
-
-<div style="overflow-x: auto;">
-    <table id="csvTable">
-        <thead></thead>
-        <tbody></tbody>
-    </table>
-</div>
-
+<div class="shell">
+<header class="topbar">
+  <div class="brand"><div class="brandmark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 14.5 21 4l-6.5 17-3.2-6.8L3 14.5Z"/><path d="m11.3 14.2 4.5-4.5"/></svg></div><div><div class="brandname">Saad flightlog<span style="color:#6d8b73">.</span></div><div class="brandtag">My personal flight archive</div></div></div>
+  <div class="top-actions">
+    <!-- <button class="pill" id="exportBtn">↓ Export CSV</button> -->
+    <!-- <button class="pill primary" id="uploadBtn">＋ Import CSV</button> -->
+    <input class="file-input" id="fileInput" type="file" accept=".csv,text/csv">
+  </div>
+</header>
+<section class="hero">
+ <div><div class="eyebrow">✳ YOUR JOURNEY, MAPPED</div><h1>Every takeoff.<br><span class="stat-accent">Every memory.</span></h1><p>A personal archive of the places you’ve connected, the miles you’ve covered, and the airlines that have taken you there. Your travel history, brought into focus.</p></div>
+ <div class="hero-stats"><div class="hero-stat"><div class="num" id="heroFlights">46</div><div class="label">Flights in your archive</div></div><div class="hero-stat"><div class="num stat-accent" id="heroAirports">—</div><div class="label">Unique airports</div></div><div class="hero-stat"><div class="num" id="heroCountries">—</div><div class="label">Cities & destinations</div></div><div class="hero-stat"><div class="num stat-accent" id="heroYears">—</div><div class="label">Years of travel</div></div></div>
+</section>
+<div class="section-head"><div><h2>Your flight overview</h2><p>A high-level look at your flying history.</p></div><div class="tiny-label" id="dateRange">ARCHIVE · 2023—2026</div></div>
+<section class="kpis">
+ <article class="kpi"><div class="kpi-top"><span class="tiny-label">Total flights</span><span class="kpi-icon">✈</span></div><div class="value" id="totalFlights">—</div><div class="desc">Recorded journeys</div></article>
+ <article class="kpi"><div class="kpi-top"><span class="tiny-label">Time in the air</span><span class="kpi-icon">◷</span></div><div class="value" id="totalHours">—</div><div class="desc">Combined flight duration</div></article>
+ <article class="kpi"><div class="kpi-top"><span class="tiny-label">Airlines flown</span><span class="kpi-icon">◎</span></div><div class="value" id="totalAirlines">—</div><div class="desc">Different carriers</div></article>
+ <article class="kpi"><div class="kpi-top"><span class="tiny-label">Most-used carrier</span><span class="kpi-icon">↗</span></div><div class="value" id="topCarrier" style="font-size:20px">—</div><div class="desc" id="topCarrierSub">By recorded flights</div></article>
+</section>
+<div class="section-head"><div><h2>Patterns &amp; milestones</h2><p>See how your travel has changed over time.</p></div></div>
+<section class="charts">
+ <article class="panel"><div class="panel-title"><div><h3>Flights over time</h3><p>Number of flights per year</p></div><span class="tiny-label">YEARLY</span></div><div class="chart-wrap"><canvas id="yearChart"></canvas></div></article>
+ <article class="panel"><div class="panel-title"><div><h3>Flight purpose</h3><p>How your trips are categorised in the source data</p></div><span class="tiny-label">BREAKDOWN</span></div><div class="chart-wrap"><canvas id="reasonChart"></canvas></div></article>
+</section>
+<section class="lower-grid">
+ <article class="panel"><div class="panel-title"><div><h3>Your frequent flyers</h3><p>Airlines ranked by number of flights</p></div><span class="tiny-label">TOP 5</span></div><div class="airline-list" id="airlineList"></div></article>
+ <article class="panel"><div class="panel-title"><div><h3>Signature route</h3><p>Your most frequently recorded airport pair</p></div><span class="tiny-label">MOST FLOWN</span></div><div id="routeHighlight"></div>
+  <!-- <div class="tiny-label" style="line-height:1.8">Route pairs are calculated from the origin and destination airport codes in your CSV. Return journeys are treated as separate directions.</div></article> -->
+</section>
+<div class="section-head"><div><h2>Flight history</h2><p>Search, filter, and explore every flight in your archive.</p></div><div class="tiny-label" id="resultCount">46 RECORDS</div></div>
+<div class="filters"><input id="searchInput" placeholder="Search flight, city, airport or airline…" aria-label="Search flights"><select id="yearFilter" aria-label="Filter by year"><option value="">All years</option></select><select id="airlineFilter" aria-label="Filter by airline"><option value="">All airlines</option></select><select id="sortFilter" aria-label="Sort flights"><option value="newest">Newest first</option><option value="oldest">Oldest first</option><option value="longest">Longest duration</option><option value="shortest">Shortest duration</option></select></div>
+<div class="table-wrap"><table class="flight-table"><thead><tr><th>Date</th><th>Flight</th><th>Route</th><th>Airline</th><th>Aircraft</th><th>Duration</th><th>Seat</th></tr></thead><tbody id="flightRows"></tbody></table><div id="emptyState" class="empty" style="display:none">No flights match your filters. Try another search.</div></div>
+<div class="pagination"><span id="pageInfo">Showing flights</span><div style="display:flex;gap:7px"><button id="prevBtn">← Previous</button><button id="nextBtn">Next →</button></div></div>
+<footer class="footer"><span>FLIGHTLOG · PERSONAL TRAVEL ARCHIVE</span><span>Built from your flight diary CSV · Data stays in this browser session</span></footer>
+</div><div class="toast" id="toast"></div>
 <script>
-
-
-  const columnCountElem = document.getElementById('columnCount');
-
-    let fullData = [];
-    let headers = [];
-    
-  
-    function parseCSV(text) {
-      return text.trim().split('\n').map(row => {
-        return row.split(',').map(cell =>
-          cell.trim().replace(/^"(.*)"$/, '$1') // remove outer quotes
-        );
-      });
-    }
-  
-    function sortByDateDesc(data) {
-      const dateColIndex = data[0].findIndex(h => h.toLowerCase().includes('date'));
-      if (dateColIndex === -1) return data; // no date column
-  
-      const header = data[0];
-      const rows = data.slice(1);
-  
-      rows.sort((a, b) => {
-        const dateA = new Date(a[dateColIndex]);
-        const dateB = new Date(b[dateColIndex]);
-        return dateA - dateB; // ascending
-      });
-  
-      return [header, ...rows];
-    }
-  
-    function renderTable(data) {
-      const thead = document.querySelector('#csvTable thead');
-      const tbody = document.querySelector('#csvTable tbody');
-      thead.innerHTML = '';
-      tbody.innerHTML = '';
-  
-      if (data.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="100%" class="no-data">No matching flights found.</td></tr>';
-        return;
-      }
-  
-      // Headers
-      const headerRow = document.createElement('tr');
-      data[0].forEach(header => {
-        const th = document.createElement('th');
-        th.textContent = header;
-        headerRow.appendChild(th);
-      });
-      thead.appendChild(headerRow);
-  
-      // Rows
-      data.slice(1).forEach(row => {
-        const tr = document.createElement('tr');
-        row.forEach(cell => {
-          const td = document.createElement('td');
-          td.textContent = cell === '' ? '' : cell;
-          tr.appendChild(td);
-        });
-        tbody.appendChild(tr);
-      });
-    }
-  
-    function filterRows(query) {
-      const lowerQuery = query.toLowerCase();
-      const filtered = fullData.filter((row, i) => {
-        if (i === 0) return true; // keep header
-        return row.some(cell => cell.toLowerCase().includes(lowerQuery));
-      });
-      renderTable(filtered);
-    }
-  
-    fetch('flights.csv')
-      .then(response => response.text())
-      .then(text => {
-        const parsed = parseCSV(text);
-        const cleaned = parsed.filter((row, i) => i === 0 || row.length === parsed[0].length);
-        fullData = sortByDateDesc(cleaned);
-        headers = fullData[0];
-        renderTable(fullData);
-        // console.log()
-        // columnCountElem.textContent = `Total Flights: ${fullData.length -1}`;
-
-      })
-      .catch(err => {
-        console.error('Error loading CSV file:', err.message);
-      });
-    document.getElementById('searchInput').addEventListener('input', (e) => {
-      filterRows(e.target.value);
-    });
-  </script>
-
+const INITIAL_DATA = [{"Date": "2024-05-01", "Flight number": "BA0765", "From": "Oslo / Gardermoen (OSL/ENGM)", "To": "London / Heathrow (LHR/EGLL)", "Dep time": "21:20:00", "Arr time": "22:30:00", "Duration": "02:10:00", "Airline": "British Airways (BA/BAW)", "Aircraft": "Airbus A320 (A320)", "Registration": "", "Seat number": "20F", "Seat type": 1, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 2219, "Arr_id": 1618, "Airline_id": 113, "Aircraft_id": 27}, {"Date": "2024-07-09", "Flight number": "EY12", "From": "London / Heathrow (LHR/EGLL)", "To": "Abu Dhabi / Abu Dhabi (AUH/OMAA)", "Dep time": "09:30:00", "Arr time": "19:25:00", "Duration": "06:55:00", "Airline": "Etihad Airways (EY/ETD)", "Aircraft": " ()", "Registration": "", "Seat number": "63A", "Seat type": 1, "Flight class": 1, "Flight reason": 0, "Note": "", "Dep_id": 1618, "Arr_id": 188, "Airline_id": 276, "Aircraft_id": 0}, {"Date": "2024-07-09", "Flight number": "EY241", "From": "Abu Dhabi / Abu Dhabi (AUH/OMAA)", "To": "Lahore / Lahore (LHE/OPLA)", "Dep time": "23:05:00", "Arr time": "03:30:00", "Duration": "03:25:00", "Airline": "Etihad Airways (EY/ETD)", "Aircraft": "Airbus A321 (A321)", "Registration": "", "Seat number": "40A", "Seat type": 1, "Flight class": 1, "Flight reason": 0, "Note": "", "Dep_id": 188, "Arr_id": 1615, "Airline_id": 276, "Aircraft_id": 28}, {"Date": "2024-07-31", "Flight number": "EY242", "From": "Lahore / Lahore (LHE/OPLA)", "To": "Abu Dhabi / Abu Dhabi (AUH/OMAA)", "Dep time": "04:35:00", "Arr time": "07:00:00", "Duration": "03:25:00", "Airline": "Etihad Airways (EY/ETD)", "Aircraft": "Airbus A321-200 (A321)", "Registration": "", "Seat number": "32A", "Seat type": 1, "Flight class": 1, "Flight reason": 0, "Note": "", "Dep_id": 1615, "Arr_id": 188, "Airline_id": 276, "Aircraft_id": 2076}, {"Date": "2024-07-31", "Flight number": "EY17", "From": "Abu Dhabi / Abu Dhabi (AUH/OMAA)", "To": "London / Heathrow (LHR/EGLL)", "Dep time": "14:05:00", "Arr time": "18:45:00", "Duration": "07:40:00", "Airline": "Etihad Airways (EY/ETD)", "Aircraft": " ()", "Registration": "", "Seat number": "", "Seat type": 1, "Flight class": 1, "Flight reason": 0, "Note": "", "Dep_id": 188, "Arr_id": 1618, "Airline_id": 276, "Aircraft_id": 0}, {"Date": "2023-10-31", "Flight number": "SK1527", "From": "Stockholm / Arlanda (ARN/ESSA)", "To": "London / Heathrow (LHR/EGLL)", "Dep time": "19:45:00", "Arr time": "21:20:00", "Duration": "02:35:00", "Airline": "Scandinavian Airlines (SK/SAS)", "Aircraft": " ()", "Registration": "", "Seat number": "", "Seat type": 1, "Flight class": 1, "Flight reason": 0, "Note": "", "Dep_id": 3622, "Arr_id": 1618, "Airline_id": 677, "Aircraft_id": 0}, {"Date": "2023-10-28", "Flight number": "FR4693", "From": "London / Stansted (STN/EGSS)", "To": "Stockholm / Arlanda (ARN/ESSA)", "Dep time": "17:25:00", "Arr time": "20:45:00", "Duration": "02:20:00", "Airline": "Ryanair (FR/RYR)", "Aircraft": "Boeing 737-800 (B738)", "Registration": "", "Seat number": "", "Seat type": 1, "Flight class": 1, "Flight reason": 0, "Note": "", "Dep_id": 2785, "Arr_id": 3622, "Airline_id": 668, "Aircraft_id": 231}, {"Date": "2024-04-24", "Flight number": "RK32", "From": "London / Stansted (STN/EGSS)", "To": "Torp / Sandefjord (TRF/ENTO)", "Dep time": "16:40:00", "Arr time": "19:35:00", "Duration": "01:55:00", "Airline": "Air Afrique (RK/RKA)", "Aircraft": "Boeing 737-800 (B738)", "Registration": "", "Seat number": "10A", "Seat type": 1, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 2785, "Arr_id": 3005, "Airline_id": 2447, "Aircraft_id": 231}, {"Date": "2024-10-27", "Flight number": "TO7411", "From": "Oslo / Gardermoen (OSL/ENGM)", "To": "Paris / Orly (ORY/LFPO)", "Dep time": "19:50:00", "Arr time": "22:40:00", "Duration": "02:50:00", "Airline": "Transavia.com France (TO/TVF)", "Aircraft": "Boeing 737-800 (B738)", "Registration": "", "Seat number": "", "Seat type": 1, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 2219, "Arr_id": 2215, "Airline_id": 1397, "Aircraft_id": 231}, {"Date": "2024-10-30", "Flight number": "EZY2436", "From": "Paris / Charles de Gaulle (CDG/LFPG)", "To": "London / Luton (LTN/EGGW)", "Dep time": "10:05:00", "Arr time": "10:55:00", "Duration": "01:50:00", "Airline": "Easyjet (U2/EZY)", "Aircraft": " ()", "Registration": "", "Seat number": "", "Seat type": 1, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 509, "Arr_id": 1701, "Airline_id": 291, "Aircraft_id": 0}, {"Date": "2025-03-14", "Flight number": "KU104", "From": "London / Heathrow (LHR/EGLL)", "To": "Kuwait / Kuwait (KWI/OKKK)", "Dep time": "10:45:00", "Arr time": "19:45:00", "Duration": "07:00:00", "Airline": "Kuwait Airways (KU/KAC)", "Aircraft": "Boeing 777-300ER (B77W)", "Registration": "9K-AOJ", "Seat number": "", "Seat type": 1, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 1618, "Arr_id": 1538, "Airline_id": 424, "Aircraft_id": 2023}, {"Date": "2025-03-14", "Flight number": "KU201", "From": "Kuwait / Kuwait (KWI/OKKK)", "To": "Lahore / Lahore (LHE/OPLA)", "Dep time": "21:10:00", "Arr time": "02:50:00", "Duration": "03:40:00", "Airline": "Kuwait Airways (KU/KAC)", "Aircraft": "Boeing 777-300ER (B77W)", "Registration": "9K-AOL", "Seat number": "", "Seat type": 1, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 1538, "Arr_id": 1615, "Airline_id": 424, "Aircraft_id": 2023}, {"Date": "2025-04-10", "Flight number": "KU202", "From": "Lahore / Lahore (LHE/OPLA)", "To": "Kuwait / Kuwait (KWI/OKKK)", "Dep time": "05:10:00", "Arr time": "07:10:00", "Duration": "04:00:00", "Airline": "Kuwait Airways (KU/KAC)", "Aircraft": "Airbus A330-800neo (A338)", "Registration": "9K-APG", "Seat number": "16A", "Seat type": 1, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 1615, "Arr_id": 1538, "Airline_id": 424, "Aircraft_id": 2129}, {"Date": "2025-04-10", "Flight number": "KU101", "From": "Kuwait / Kuwait (KWI/OKKK)", "To": "London / Heathrow (LHR/EGLL)", "Dep time": "10:00:00", "Arr time": "14:45:00", "Duration": "06:45:00", "Airline": "Kuwait Airways (KU/KAC)", "Aircraft": "Boeing 777-300ER (B77W)", "Registration": "9K-AOH", "Seat number": "", "Seat type": 1, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 1538, "Arr_id": 1618, "Airline_id": 424, "Aircraft_id": 2023}, {"Date": "2023-05-31", "Flight number": "SV112", "From": "London / Heathrow (LHR/EGLL)", "To": "Riyadh / King Khalid (RUH/OERK)", "Dep time": "17:50:00", "Arr time": "02:35:00", "Duration": "06:45:00", "Airline": "Saudi Arabian Airlines (SV/SVA)", "Aircraft": "Boeing 777-300 (B773)", "Registration": "", "Seat number": "", "Seat type": 1, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 1618, "Arr_id": 2570, "Airline_id": 735, "Aircraft_id": 247}, {"Date": "2023-06-01", "Flight number": "SV734", "From": "Jeddah / King Abdulaziz (JED/OEJN)", "To": "Lahore / Lahore (LHE/OPLA)", "Dep time": "02:10:00", "Arr time": "09:05:00", "Duration": "04:55:00", "Airline": "Saudi Arabian Airlines (SV/SVA)", "Aircraft": "Boeing 777-300 (B773)", "Registration": "", "Seat number": "", "Seat type": 1, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 1325, "Arr_id": 1615, "Airline_id": 735, "Aircraft_id": 247}, {"Date": "2023-07-04", "Flight number": "SV737", "From": "Lahore / Lahore (LHE/OPLA)", "To": "Riyadh / King Khalid (RUH/OERK)", "Dep time": "20:50:00", "Arr time": "23:05:00", "Duration": "04:15:00", "Airline": "Saudi Arabian Airlines (SV/SVA)", "Aircraft": "Boeing 777 (B777)", "Registration": "", "Seat number": "", "Seat type": 1, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 1615, "Arr_id": 2570, "Airline_id": 735, "Aircraft_id": 2012}, {"Date": "2023-07-05", "Flight number": "SV111", "From": "Riyadh / King Khalid (RUH/OERK)", "To": "London / Heathrow (LHR/EGLL)", "Dep time": "02:30:00", "Arr time": "07:30:00", "Duration": "07:00:00", "Airline": "Saudi Arabian Airlines (SV/SVA)", "Aircraft": "Boeing 777 (B777)", "Registration": "", "Seat number": "", "Seat type": 1, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 2570, "Arr_id": 1618, "Airline_id": 735, "Aircraft_id": 2012}, {"Date": "2023-12-31", "Flight number": "SV100", "From": "London / Gatwick (LGW/EGKK)", "To": "Jeddah / King Abdulaziz (JED/OEJN)", "Dep time": "15:00:00", "Arr time": "23:15:00", "Duration": "06:15:00", "Airline": "Saudi Arabian Airlines (SV/SVA)", "Aircraft": "Boeing 787 Dreamliner (B787)", "Registration": "", "Seat number": "", "Seat type": 1, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 1614, "Arr_id": 1325, "Airline_id": 735, "Aircraft_id": 2086}, {"Date": "2024-01-01", "Flight number": "SV734", "From": "Jeddah / King Abdulaziz (JED/OEJN)", "To": "Lahore / Lahore (LHE/OPLA)", "Dep time": "02:10:00", "Arr time": "09:05:00", "Duration": "04:55:00", "Airline": "Saudi Arabian Airlines (SV/SVA)", "Aircraft": "Boeing 777-300 (B773)", "Registration": "", "Seat number": "", "Seat type": 2, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 1325, "Arr_id": 1615, "Airline_id": 735, "Aircraft_id": 247}, {"Date": "2024-01-10", "Flight number": "SV735", "From": "Lahore / Lahore (LHE/OPLA)", "To": "Jeddah / King Abdulaziz (JED/OEJN)", "Dep time": "10:45:00", "Arr time": "13:55:00", "Duration": "05:10:00", "Airline": "Saudi Arabian Airlines (SV/SVA)", "Aircraft": "Boeing 777-300 (B773)", "Registration": "", "Seat number": "", "Seat type": 1, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 1615, "Arr_id": 1325, "Airline_id": 735, "Aircraft_id": 247}, {"Date": "2024-01-11", "Flight number": "SV113", "From": "Riyadh / King Khalid (RUH/OERK)", "To": "London / Heathrow (LHR/EGLL)", "Dep time": "11:00:00", "Arr time": "16:00:00", "Duration": "07:00:00", "Airline": "Saudi Arabian Airlines (SV/SVA)", "Aircraft": "Boeing 777-300 (B773)", "Registration": "", "Seat number": "", "Seat type": 1, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 2570, "Arr_id": 1618, "Airline_id": 735, "Aircraft_id": 247}, {"Date": "2024-10-24", "Flight number": "RK32", "From": "London / Stansted (STN/EGSS)", "To": "Torp / Sandefjord (TRF/ENTO)", "Dep time": "13:50:00", "Arr time": "16:40:00", "Duration": "01:50:00", "Airline": "Air Afrique (RK/RKA)", "Aircraft": "Boeing 737-800 (B738)", "Registration": "", "Seat number": "", "Seat type": 1, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 2785, "Arr_id": 3005, "Airline_id": 2447, "Aircraft_id": 231}, {"Date": "2022-10-05", "Flight number": "EK625", "From": "Lahore / Lahore (LHE/OPLA)", "To": "Dubai / Dubai International (DXB/OMDB)", "Dep time": "09:00:00", "Arr time": "11:15:00", "Duration": "03:15:00", "Airline": "Emirates (EK/UAE)", "Aircraft": "Boeing 777-300ER (B77W)", "Registration": "", "Seat number": "", "Seat type": 2, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 1615, "Arr_id": 768, "Airline_id": 807, "Aircraft_id": 2023}, {"Date": "2022-10-05", "Flight number": "EK9", "From": "Dubai / Dubai International (DXB/OMDB)", "To": "London / Gatwick (LGW/EGKK)", "Dep time": "14:55:00", "Arr time": "19:45:00", "Duration": "07:50:00", "Airline": "Emirates (EK/UAE)", "Aircraft": "Airbus A380 (A380)", "Registration": "", "Seat number": "", "Seat type": 2, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 768, "Arr_id": 1614, "Airline_id": 807, "Aircraft_id": 38}, {"Date": "2020-11-29", "Flight number": "ER521", "From": "Lahore / Lahore (LHE/OPLA)", "To": "Karachi / Quaid E Azam (KHI/OPKC)", "Dep time": "10:45:00", "Arr time": "12:30:00", "Duration": "01:45:00", "Airline": "Serene Air (ER/SEP)", "Aircraft": "Airbus A320 (A320)", "Registration": "", "Seat number": "", "Seat type": 1, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 1615, "Arr_id": 1422, "Airline_id": 1673, "Aircraft_id": 27}, {"Date": "2020-11-30", "Flight number": "ER524", "From": "Karachi / Quaid E Azam (KHI/OPKC)", "To": "Lahore / Lahore (LHE/OPLA)", "Dep time": "19:50:00", "Arr time": "21:35:00", "Duration": "01:45:00", "Airline": "Serene Air (ER/SEP)", "Aircraft": "Airbus A330-200 (A332)", "Registration": "", "Seat number": "", "Seat type": 1, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 1422, "Arr_id": 1615, "Airline_id": 1673, "Aircraft_id": 30}, {"Date": "2021-01-10", "Flight number": "PA401", "From": "Lahore / Lahore (LHE/OPLA)", "To": "Karachi / Quaid E Azam (KHI/OPKC)", "Dep time": "10:00:00", "Arr time": "11:55:00", "Duration": "01:55:00", "Airline": "Airblue Limited (ED/ABQ)", "Aircraft": "Airbus A321-200 (A321)", "Registration": "", "Seat number": "", "Seat type": 1, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 1615, "Arr_id": 1422, "Airline_id": 10, "Aircraft_id": 2076}, {"Date": "2021-01-11", "Flight number": "PA404", "From": "Karachi / Quaid E Azam (KHI/OPKC)", "To": "Lahore / Lahore (LHE/OPLA)", "Dep time": "21:00:00", "Arr time": "23:00:00", "Duration": "02:00:00", "Airline": "Airblue Limited (ED/ABQ)", "Aircraft": "Airbus A321 (A321)", "Registration": "", "Seat number": "", "Seat type": 2, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 1422, "Arr_id": 1615, "Airline_id": 10, "Aircraft_id": 28}, {"Date": "2025-09-04", "Flight number": "W95605", "From": "London / Gatwick (LGW/EGKK)", "To": "Jeddah / King Abdulaziz (JED/OEJN)", "Dep time": "16:05:00", "Arr time": "00:40:00", "Duration": "06:35:00", "Airline": "Wizz Air UK (W9/WUK)", "Aircraft": "Airbus A321neo (A21N)", "Registration": "G-XLRB", "Seat number": "11A", "Seat type": 1, "Flight class": 1, "Flight reason": 1, "Note": "Umrah", "Dep_id": 1614, "Arr_id": 1325, "Airline_id": 2637, "Aircraft_id": 2128}, {"Date": "2025-09-13", "Flight number": "SV1421", "From": "Madinah / Prince MBA Aziz (MED/OEMA)", "To": "Jeddah / King Abdulaziz (JED/OEJN)", "Dep time": "03:35:00", "Arr time": "04:45:00", "Duration": "01:10:00", "Airline": "Saudi Arabian Airlines (SV/SVA)", "Aircraft": "Airbus A330-300 (A333)", "Registration": "HZ-AQ19", "Seat number": "", "Seat type": 1, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 1790, "Arr_id": 1325, "Airline_id": 735, "Aircraft_id": 31}, {"Date": "2025-09-13", "Flight number": "SV732", "From": "Jeddah / King Abdulaziz (JED/OEJN)", "To": "Lahore / Lahore (LHE/OPLA)", "Dep time": "07:45:00", "Arr time": "14:45:00", "Duration": "04:55:00", "Airline": "Saudi Arabian Airlines (SV/SVA)", "Aircraft": "Boeing 777-300ER (B77W)", "Registration": "HZ-AK19", "Seat number": "", "Seat type": 1, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 1325, "Arr_id": 1615, "Airline_id": 735, "Aircraft_id": 2023}, {"Date": "2025-09-24", "Flight number": "SV735", "From": "Lahore / Lahore (LHE/OPLA)", "To": "Jeddah / King Abdulaziz (JED/OEJN)", "Dep time": "10:45:00", "Arr time": "13:55:00", "Duration": "05:10:00", "Airline": "Saudi Arabian Airlines (SV/SVA)", "Aircraft": "Boeing 777-300ER (B77W)", "Registration": "HZ-AK18", "Seat number": "41A", "Seat type": 1, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 1615, "Arr_id": 1325, "Airline_id": 735, "Aircraft_id": 2023}, {"Date": "2025-09-24", "Flight number": "SV117", "From": "Jeddah / King Abdulaziz (JED/OEJN)", "To": "London / Heathrow (LHR/EGLL)", "Dep time": "16:00:00", "Arr time": "20:30:00", "Duration": "06:30:00", "Airline": "Saudi Arabian Airlines (SV/SVA)", "Aircraft": "Boeing 787-10 (B78X)", "Registration": "HZ-AR33", "Seat number": "52A", "Seat type": 1, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 1325, "Arr_id": 1618, "Airline_id": 735, "Aircraft_id": 2138}, {"Date": "2025-11-06", "Flight number": "J28", "From": "London / Heathrow (LHR/EGLL)", "To": "Baku / Heydar Aliyev (GYD/UBBB)", "Dep time": "22:05:00", "Arr time": "07:35:00", "Duration": "06:30:00", "Airline": "AZAL Azerbaijan Airlines (J2/AHY)", "Aircraft": "Boeing 787-8 (B788)", "Registration": "VP-BBS", "Seat number": "", "Seat type": 2, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 1618, "Arr_id": 216, "Airline_id": 41, "Aircraft_id": 2087}, {"Date": "2025-11-07", "Flight number": "J2145", "From": "Baku / Heydar Aliyev (GYD/UBBB)", "To": "Lahore / Lahore (LHE/OPLA)", "Dep time": "21:10:00", "Arr time": "01:45:00", "Duration": "03:35:00", "Airline": "AZAL Azerbaijan Airlines (J2/AHY)", "Aircraft": "Airbus A319 (A319)", "Registration": "4K-AZ04", "Seat number": "", "Seat type": 2, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 216, "Arr_id": 1615, "Airline_id": 41, "Aircraft_id": 26}, {"Date": "2025-11-11", "Flight number": "J2146", "From": "Lahore / Lahore (LHE/OPLA)", "To": "Baku / Heydar Aliyev (GYD/UBBB)", "Dep time": "02:45:00", "Arr time": "05:35:00", "Duration": "03:50:00", "Airline": "AZAL Azerbaijan Airlines (J2/AHY)", "Aircraft": "Airbus A319 (A319)", "Registration": "4K-AZ05", "Seat number": "", "Seat type": 2, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 1615, "Arr_id": 216, "Airline_id": 41, "Aircraft_id": 26}, {"Date": "2025-11-11", "Flight number": "J27", "From": "Baku / Heydar Aliyev (GYD/UBBB)", "To": "London / Heathrow (LHR/EGLL)", "Dep time": "19:05:00", "Arr time": "21:05:00", "Duration": "05:00:00", "Airline": "AZAL Azerbaijan Airlines (J2/AHY)", "Aircraft": "Boeing 787-8 (B788)", "Registration": "VP-BBR", "Seat number": "", "Seat type": 2, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 216, "Arr_id": 1618, "Airline_id": 41, "Aircraft_id": 2087}, {"Date": "2026-03-12", "Flight number": "TK1998", "From": "London / Gatwick (LGW/EGKK)", "To": "Istanbul / Istanbul Airport (IST/LTFM)", "Dep time": "17:35:00", "Arr time": "23:30:00", "Duration": "03:55:00", "Airline": "Turkish Airlines (TK/THY)", "Aircraft": "Airbus A321LR (A21N)", "Registration": "", "Seat number": "", "Seat type": 1, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 1614, "Arr_id": 8949, "Airline_id": 769, "Aircraft_id": 2181}, {"Date": "2026-03-13", "Flight number": "TK744", "From": "Istanbul / Istanbul Airport (IST/LTFM)", "To": "Lahore / Lahore (LHE/OPLA)", "Dep time": "00:40:00", "Arr time": "08:05:00", "Duration": "05:25:00", "Airline": "Turkish Airlines (TK/THY)", "Aircraft": "Airbus A330-300 (A333)", "Registration": "", "Seat number": "", "Seat type": 1, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 8949, "Arr_id": 1615, "Airline_id": 769, "Aircraft_id": 31}, {"Date": "2026-04-21", "Flight number": "TK715", "From": "Lahore / Lahore (LHE/OPLA)", "To": "Istanbul / Istanbul Airport (IST/LTFM)", "Dep time": "05:35:00", "Arr time": "10:15:00", "Duration": "06:40:00", "Airline": "Turkish Airlines (TK/THY)", "Aircraft": "Airbus A330-200 (A332)", "Registration": "TC-JIP", "Seat number": "5K", "Seat type": 3, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 1615, "Arr_id": 8949, "Airline_id": 769, "Aircraft_id": 30}, {"Date": "2026-04-21", "Flight number": "TK1931", "From": "Istanbul / Istanbul Airport (IST/LTFM)", "To": "London / Heathrow (LHR/EGLL)", "Dep time": "13:55:00", "Arr time": "16:00:00", "Duration": "04:05:00", "Airline": "Turkish Airlines (TK/THY)", "Aircraft": "Airbus A321neo (A21N)", "Registration": "TC-LTJ", "Seat number": "16B", "Seat type": 2, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 8949, "Arr_id": 1618, "Airline_id": 769, "Aircraft_id": 2128}, {"Date": "2026-09-03", "Flight number": "SV118", "From": "London / Heathrow (LHR/EGLL)", "To": "Jeddah / King Abdulaziz (JED/OEJN)", "Dep time": "22:10:00", "Arr time": "06:20:00", "Duration": "06:10:00", "Airline": "Saudi Arabian Airlines (SV/SVA)", "Aircraft": "Boeing 787-9 (B789)", "Registration": "", "Seat number": "", "Seat type": 1, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 1618, "Arr_id": 1325, "Airline_id": 735, "Aircraft_id": 2088}, {"Date": "2026-09-04", "Flight number": "SV732", "From": "Jeddah / King Abdulaziz (JED/OEJN)", "To": "Lahore / Lahore (LHE/OPLA)", "Dep time": "09:30:00", "Arr time": "16:25:00", "Duration": "04:55:00", "Airline": "Saudi Arabian Airlines (SV/SVA)", "Aircraft": "Boeing 777-300 (B773)", "Registration": "", "Seat number": "", "Seat type": 1, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 1325, "Arr_id": 1615, "Airline_id": 735, "Aircraft_id": 247}, {"Date": "2026-09-23", "Flight number": "SV737", "From": "Lahore / Lahore (LHE/OPLA)", "To": "Riyadh / King Khalid (RUH/OERK)", "Dep time": "21:10:00", "Arr time": "23:25:00", "Duration": "04:15:00", "Airline": "Saudi Arabian Airlines (SV/SVA)", "Aircraft": "Boeing 777-300ER (B77W)", "Registration": "HZ-AK26", "Seat number": "", "Seat type": 1, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 1615, "Arr_id": 2570, "Airline_id": 735, "Aircraft_id": 2023}, {"Date": "2026-09-25", "Flight number": "SV111", "From": "Riyadh / King Khalid (RUH/OERK)", "To": "London / Heathrow (LHR/EGLL)", "Dep time": "02:30:00", "Arr time": "07:30:00", "Duration": "07:00:00", "Airline": "Saudi Arabian Airlines (SV/SVA)", "Aircraft": "Boeing 777-300ER (B77W)", "Registration": "HZ-AK37", "Seat number": "", "Seat type": 1, "Flight class": 1, "Flight reason": 1, "Note": "", "Dep_id": 2570, "Arr_id": 1618, "Airline_id": 735, "Aircraft_id": 2023}];
+let flights = INITIAL_DATA.map(normalizeFlight);
+let filtered = [...flights], page = 1, pageSize = 10, charts = {};
+function normalizeFlight(f){
+ const date = String(f.Date||'').slice(0,10);
+ const from = String(f.From||''), to = String(f.To||'');
+ return {...f, _date:date, _year:date.slice(0,4), _fromCode:airportCode(from), _toCode:airportCode(to), _fromCity:cityName(from), _toCity:cityName(to), _durationMin:durationMinutes(f.Duration)};
+}
+function airportCode(s){const m=String(s).match(/\(([A-Z]{3})\/[A-Z0-9]+\)/);return m?m[1]:(String(s).match(/\(([A-Z]{3})\)/)||[])[1]||'—'}
+function cityName(s){return String(s||'').split('/')[0].trim()||'Unknown'}
+function durationMinutes(s){if(typeof s==='number')return s;const p=String(s||'').split(':').map(Number);return p.length>=2?(p[0]||0)*60+(p[1]||0):0}
+function durationLabel(m){return `${Math.floor(m/60)}h ${String(m%60).padStart(2,'0')}m`}
+function fmtDate(s){if(!s)return '—';return new Date(s+'T12:00:00').toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})}
+function cleanAirline(s){return String(s||'Unknown airline').replace(/\s*\([^)]*\)\s*$/,'').trim()}
+function countBy(arr,fn){const m=new Map();arr.forEach(x=>{const k=fn(x);m.set(k,(m.get(k)||0)+1)});return [...m.entries()].sort((a,b)=>b[1]-a[1])}
+function uniqueAirportSet(){return new Set(flights.flatMap(f=>[f._fromCode,f._toCode]).filter(x=>x&&x!=='—'))}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',2600)}
+function renderAll(){renderSummary();populateFilters();applyFilters();renderCharts();renderAirlines();renderRoute()}
+function renderSummary(){
+ const total=flights.length, minutes=flights.reduce((s,f)=>s+f._durationMin,0), airlines=countBy(flights,f=>cleanAirline(f.Airline)), years=[...new Set(flights.map(f=>f._year).filter(Boolean))].sort();
+ const airports=uniqueAirportSet();
+ document.getElementById('heroFlights').textContent=total;
+ document.getElementById('heroAirports').textContent=airports.size;
+ // Country names are not reliably present in the CSV, so use distinct airport locations as a conservative proxy.
+ const places=new Set(flights.flatMap(f=>[f._fromCity,f._toCity]).filter(Boolean));
+ document.getElementById('heroCountries').textContent=places.size;
+ document.getElementById('heroYears').textContent=years.length;
+ document.getElementById('totalFlights').textContent=total.toLocaleString();
+ document.getElementById('totalHours').textContent=`${Math.floor(minutes/60).toLocaleString()}h`;
+ document.getElementById('totalAirlines').textContent=airlines.length;
+ document.getElementById('topCarrier').textContent=airlines[0]?.[0]||'—';
+ document.getElementById('topCarrierSub').textContent=airlines[0]?`${airlines[0][1]} recorded flights`:'No airline data';
+ document.getElementById('dateRange').textContent=years.length?`ARCHIVE · ${years[0]}—${years[years.length-1]}`:'EMPTY ARCHIVE';
+}
+function populateFilters(){
+ const yf=document.getElementById('yearFilter'), af=document.getElementById('airlineFilter');
+ const oldY=yf.value,oldA=af.value;
+ yf.innerHTML='<option value="">All years</option>'+[...new Set(flights.map(f=>f._year).filter(Boolean))].sort().reverse().map(y=>`<option>${escapeHtml(y)}</option>`).join('');
+ af.innerHTML='<option value="">All airlines</option>'+countBy(flights,f=>cleanAirline(f.Airline)).map(([a])=>`<option value="${escapeHtml(a)}">${escapeHtml(a)}</option>`).join('');
+ yf.value=oldY;af.value=oldA;
+}
+function applyFilters(){
+ const q=document.getElementById('searchInput').value.toLowerCase().trim(),year=document.getElementById('yearFilter').value,airline=document.getElementById('airlineFilter').value,sort=document.getElementById('sortFilter').value;
+ filtered=flights.filter(f=>(!year||f._year===year)&&(!airline||cleanAirline(f.Airline)===airline)&&(!q||[f.Date,f['Flight number'],f.From,f.To,f.Airline,f.Aircraft,f['Seat number']].join(' ').toLowerCase().includes(q)));
+ filtered.sort((a,b)=>sort==='oldest'?a._date.localeCompare(b._date):sort==='longest'?b._durationMin-a._durationMin:sort==='shortest'?a._durationMin-b._durationMin:b._date.localeCompare(a._date));
+ page=1;renderTable();
+}
+function renderTable(){
+ const tbody=document.getElementById('flightRows'),start=(page-1)*pageSize,items=filtered.slice(start,start+pageSize);
+ tbody.innerHTML=items.map(f=>`<tr><td>${escapeHtml(fmtDate(f._date))}</td><td><span class="flightno">${escapeHtml(f['Flight number']||'—')}</span></td><td class="route-cell">${escapeHtml(f._fromCode)} <span style="color:#9aa39b">→</span> ${escapeHtml(f._toCode)}<span class="sub">${escapeHtml(f._fromCity)} → ${escapeHtml(f._toCity)}</span></td><td><span class="airline-pill">${escapeHtml(cleanAirline(f.Airline))}</span></td><td>${escapeHtml(String(f.Aircraft||'').replace(/\(\s*\)/g,'').trim()||'—')}</td><td class="duration">${escapeHtml(durationLabel(f._durationMin))}</td><td>${escapeHtml(f['Seat number']||'—')}</td></tr>`).join('');
+ document.getElementById('emptyState').style.display=items.length?'none':'block';
+ document.getElementById('resultCount').textContent=`${filtered.length} RECORD${filtered.length===1?'':'S'}`;
+ document.getElementById('pageInfo').textContent=filtered.length?`Showing ${start+1}–${Math.min(start+pageSize,filtered.length)} of ${filtered.length} flights`:'Showing 0 flights';
+ document.getElementById('prevBtn').disabled=page<=1;document.getElementById('nextBtn').disabled=start+pageSize>=filtered.length;
+}
+function chartDefaults(){return {responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{usePointStyle:true,pointStyle:'circle',boxWidth:7,color:'#77817b',font:{family:'DM Sans',size:11}}}},scales:{x:{grid:{display:false},ticks:{color:'#77817b',font:{family:'DM Sans',size:10}},border:{display:false}},y:{beginAtZero:true,grid:{color:'#edf0eb'},ticks:{precision:0,color:'#77817b',font:{family:'DM Sans',size:10}},border:{display:false}}}}}
+function renderCharts(){
+ Object.values(charts).forEach(c=>c.destroy());charts={};
+ const yearly=countBy(flights,f=>f._year).sort((a,b)=>a[0].localeCompare(b[0]));
+ charts.year=new Chart(document.getElementById('yearChart'),{type:'bar',data:{labels:yearly.map(x=>x[0]),datasets:[{data:yearly.map(x=>x[1]),backgroundColor:'#244c3f',hoverBackgroundColor:'#c9f36a',borderRadius:7,maxBarThickness:48}]},options:{...chartDefaults(),plugins:{legend:{display:false}}}});
+ const reasons=countBy(flights,f=>String(f['Flight reason']??'').trim()==='1'?'Leisure / personal':String(f['Flight reason']??'').trim()==='0'?'Other / not specified':String(f['Flight reason']||'Not recorded'));
+ charts.reason=new Chart(document.getElementById('reasonChart'),{type:'doughnut',data:{labels:reasons.map(x=>x[0]),datasets:[{data:reasons.map(x=>x[1]),backgroundColor:['#244c3f','#c9f36a','#f4a261','#b7c8bb','#dce5d7'],borderWidth:3,borderColor:'#fff',hoverOffset:5}]},options:{responsive:true,maintainAspectRatio:false,cutout:'70%',plugins:{legend:{position:'bottom',labels:{usePointStyle:true,pointStyle:'circle',padding:18,color:'#77817b',font:{family:'DM Sans',size:10}}}}}});
+}
+function renderAirlines(){
+ const items=countBy(flights,f=>cleanAirline(f.Airline)).slice(0,5),max=items[0]?.[1]||1;
+ document.getElementById('airlineList').innerHTML=items.map(([name,n])=>{const code=(flights.find(f=>cleanAirline(f.Airline)===name)?.['Flight number']||'FL').replace(/[0-9]/g,'').slice(0,3)||'FL';return `<div class="airline-row"><div class="airline-badge">${escapeHtml(code)}</div><div><div class="airline-name">${escapeHtml(name)}</div><div class="bar-bg"><div class="bar-fill" style="width:${n/max*100}%"></div></div></div><div class="airline-count">${n} ${n===1?'flight':'flights'}</div></div>`}).join('')||'<div class="empty">No airline data available.</div>';
+}
+function renderRoute(){
+ const pairs=countBy(flights,f=>`${f._fromCode}|${f._toCode}`),top=pairs[0];
+ if(!top){document.getElementById('routeHighlight').innerHTML='<div class="empty">No route data available.</div>';return}
+ const [from,to]=top[0].split('|'),f=flights.find(x=>x._fromCode===from&&x._toCode===to);
+ document.getElementById('routeHighlight').innerHTML=`<div class="route-highlight"><div class="route-top"><span class="tiny-label">YOUR REPEAT ROUTE</span><span class="route-chip">${top[1]} ${top[1]===1?'FLIGHT':'FLIGHTS'}</span></div><div class="route-line"><div><div class="airport-code">${escapeHtml(from)}</div><div class="airport-city">${escapeHtml(f?f._fromCity:'Origin')}</div></div><div class="route-center"><div>DIRECT</div><div class="line"></div></div><div style="text-align:right"><div class="airport-code">${escapeHtml(to)}</div><div class="airport-city">${escapeHtml(f?f._toCity:'Destination')}</div></div></div><div class="route-bottom"><span>${escapeHtml(cleanAirline(f?.Airline||'Multiple airlines'))}</span><span>${escapeHtml(durationLabel(f?f._durationMin:0))} typical record</span></div></div>`;
+}
+function escapeHtml(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function csvEscape(v){const s=String(v??'');return /[",\n\r]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s}
+function exportCSV(){if(!flights.length){showToast('No flights to export.');return}const headers=Object.keys(flights[0]).filter(k=>!k.startsWith('_'));const rows=[headers.join(','),...flights.map(f=>headers.map(h=>csvEscape(f[h])).join(','))];const blob=new Blob(['\ufeff'+rows.join('\r\n')],{type:'text/csv;charset=utf-8;'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='flightlog-export.csv';a.click();URL.revokeObjectURL(url);showToast('Your flight archive has been exported.')}
+function parseCSV(text){
+ const rows=[];let row=[],cell='',quoted=false;
+ for(let i=0;i<text.length;i++){const c=text[i],n=text[i+1];if(quoted){if(c==='"'&&n==='"'){cell+='"';i++}else if(c==='"')quoted=false;else cell+=c}else{if(c==='"')quoted=true;else if(c===','){row.push(cell);cell=''}else if(c==='\n'){row.push(cell.replace(/\r$/,''));rows.push(row);row=[];cell=''}else cell+=c}}
+ if(cell.length||row.length){row.push(cell.replace(/\r$/,''));rows.push(row)}
+ if(rows.length<2)throw new Error('The CSV file does not contain flight records.');
+ const headers=rows.shift().map(h=>h.trim());return rows.filter(r=>r.some(v=>v.trim())).map(r=>Object.fromEntries(headers.map((h,i)=>[h,r[i]??''])));
+}
+document.getElementById('searchInput').addEventListener('input',applyFilters);
+['yearFilter','airlineFilter','sortFilter'].forEach(id=>document.getElementById(id).addEventListener('change',applyFilters));
+document.getElementById('prevBtn').addEventListener('click',()=>{if(page>1){page--;renderTable()}});
+document.getElementById('nextBtn').addEventListener('click',()=>{if(page*pageSize<filtered.length){page++;renderTable()}});
+// document.getElementById('exportBtn').addEventListener('click',exportCSV);
+// document.getElementById('uploadBtn').addEventListener('click',()=>document.getElementById('fileInput').click());
+document.getElementById('fileInput').addEventListener('change',async e=>{const file=e.target.files[0];if(!file)return;try{const parsed=parseCSV(await file.text());if(!parsed[0].Date||!parsed[0].From||!parsed[0].To)throw new Error('Please use a flight CSV with Date, From, and To columns.');flights=parsed.map(normalizeFlight);renderAll();showToast(`Imported ${flights.length} flight records.`)}catch(err){showToast(err.message||'Could not read this CSV file.')}e.target.value=''});
+renderAll();
+</script>
 </body>
 </html>
