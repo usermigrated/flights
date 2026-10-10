@@ -42,3 +42,7 @@ Date,"Flight number",From,To,"Dep time","Arr time",Duration,Airline,Aircraft,Reg
 2026-03-13,TK744,"Istanbul / Istanbul Airport (IST/LTFM)","Lahore / Lahore (LHE/OPLA)",00:40:00,08:05:00,05:25:00,"Turkish Airlines (TK/THY)","Airbus A330-300 (A333)",,,1,1,1,,8949,1615,769,31
 2026-04-21,TK715,"Lahore / Lahore (LHE/OPLA)","Istanbul / Istanbul Airport (IST/LTFM)",05:35:00,10:15:00,06:40:00,"Turkish Airlines (TK/THY)","Airbus A330-200 (A332)",TC-JIP,5K,3,1,1,,1615,8949,769,30
 2026-04-21,TK1931,"Istanbul / Istanbul Airport (IST/LTFM)","London / Heathrow (LHR/EGLL)",13:55:00,16:00:00,04:05:00,"Turkish Airlines (TK/THY)","Airbus A321neo (A21N)",TC-LTJ,16B,2,1,1,,8949,1618,769,2128
+2026-09-03,SV118,"London / Heathrow (LHR/EGLL)","Jeddah / King Abdulaziz (JED/OEJN)",22:10:00,06:20:00,06:10:00,"Saudi Arabian Airlines (SV/SVA)","Boeing 787-9 (B789)",,,1,1,1,,1618,1325,735,2088
+2026-09-04,SV732,"Jeddah / King Abdulaziz (JED/OEJN)","Lahore / Lahore (LHE/OPLA)",09:30:00,16:25:00,04:55:00,"Saudi Arabian Airlines (SV/SVA)","Boeing 777-300 (B773)",,,1,1,1,,1325,1615,735,247
+2026-09-23,SV737,"Lahore / Lahore (LHE/OPLA)","Riyadh / King Khalid (RUH/OERK)",21:10:00,23:25:00,04:15:00,"Saudi Arabian Airlines (SV/SVA)","Boeing 777-300ER (B77W)",HZ-AK26,,1,1,1,,1615,2570,735,2023
+2026-09-25,SV111,"Riyadh / King Khalid (RUH/OERK)","London / Heathrow (LHR/EGLL)",02:30:00,07:30:00,07:00:00,"Saudi Arabian Airlines (SV/SVA)","Boeing 777-300ER (B77W)",HZ-AK37,,1,1,1,,2570,1618,735,2023
