@@ -45,53 +45,64 @@
     <div id="results"></div>
 
     <script>
-        $(document).ready(function () {
+        
+$(document).ready(function () {
 
-            $("#fetchResults").click(function () {
+    $("#fetchResults").click(function () {
 
-                $("#status").html("Loading results...");
-                $("#results").empty();
+        $("#status").html("Loading results...");
+        $("#results").empty();
 
-                $.ajax({
-                    url: "https://www.fpsc.gov.pk/api/results?category=CSS_FINAL_RESULT",
-                    type: "GET",
-                    dataType: "json",
+        $.ajax({
+            url: "https://www.fpsc.gov.pk/api/results?category=CSS_FINAL_RESULT",
+            type: "GET",
+            dataType: "json",
 
-                    success: function (response) {
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "X-Requested-With": "XMLHttpRequest"
+            },
 
-                        if (response.success && response.data.length > 0) {
+            success: function (response) {
 
-                            $("#status").html(
-                                "Total Records: " + response.count
-                            );
+                if (response.success && response.data.length > 0) {
 
-                            $.each(response.data, function (index, record) {
+                    $("#status").html(
+                        "Total Records: " + response.count
+                    );
 
-                                let html = `
-                                    <div class="result-card">
-                                        <h3>Record ${index + 1}</h3>
-                                        <pre>${JSON.stringify(record, null, 2)}</pre>
-                                    </div>
-                                `;
+                    $.each(response.data, function (index, record) {
 
-                                $("#results").append(html);
-                            });
+                        let html = `
+                            <div class="result-card">
+                                <h3>Record ${index + 1}</h3>
+                                <pre>${JSON.stringify(record, null, 2)}</pre>
+                            </div>
+                        `;
 
-                        } else {
-                            $("#status").html("No records found.");
-                        }
-                    },
+                        $("#results").append(html);
+                    });
 
-                    error: function (xhr, status, error) {
-                        $("#status").html(
-                            "Error fetching results: " + error
-                        );
-                    }
-                });
+                } else {
+                    $("#status").html("No records found.");
+                }
+            },
 
-            });
+            error: function (xhr, status, error) {
 
+                $("#status").html(
+                    "Error fetching results: " + error
+                );
+
+                console.log("HTTP Status:", xhr.status);
+                console.log("Response:", xhr.responseText);
+            }
         });
+
+    });
+
+});
     </script>
 
 </body>
